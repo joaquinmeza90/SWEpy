@@ -1,0 +1,15 @@
+Tmax           0.07
+Dry            1e-06
+Tolerance      1e-06
+Gravity        1
+Roughness      0
+CFL            0.25
+dt_save        0.01
+WaterLevel     WaterLevel.txt
+Discharge      Discharge.txt
+Bathymetry     Bathymetry.txt
+Coordinates    NodeCoords.txt
+Sides          ElemNeighSides.txt
+Elements       ElemNodes.txt
+Neighboors     ElemNeighs.txt
+GhostCells     GhostCells.txt
