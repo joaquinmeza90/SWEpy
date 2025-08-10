@@ -208,6 +208,14 @@ def source_term2(Hmj1,Hmj2, Wj1, Wj2, Wj3, Bj1, Bj2, Bj3, wx1, wx2, wx3, wy1, wy
 
     return Sx, Sy
 
+def source_term_bestia(h,bx,by,g):
+
+    #Source Term Values
+    Sx = -g*h*bx
+    Sy = -g*h*by
+
+    return Sx, Sy
+
 def coriolis(hu,hv,coriolis):
 
     f=coriolis

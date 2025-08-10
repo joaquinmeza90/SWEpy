@@ -139,7 +139,7 @@ def save_animation(mesh, t=0, force=False):
         Wjk = cp.asnumpy(trunc(Wjk,10))
         Wj = cp.asnumpy(trunc(Wj,10))
 
-        filename = "Paraview/Simulation_" + str(mesh["s"]) + ".vtu" if not force else "Paraview/Simulation_" + str(mesh["s"]) + "forced.vtu"
+        filename = "Paraview/Simulation_" + str(mesh["s"]) + ".vtu" if not force else "Paraview/Simulation_" + str(mesh["s"]) + "_forced_t"+f'{t}'+".vtu"
         filename = os.path.join(mesh["FilePath"]["Directory"], filename)
 
         #Opens the ParaView File 

@@ -159,7 +159,7 @@ def forward_euler(mesh,t,rkc=1,rkdt=0,cm=0):
     a_out, a_in = CentralUpwindMethod.one_sided_speed(Hmj, umj, vmj, mesh["nx"], mesh["ny"], mesh["jk"], mesh["Constants"]["Gravity"])
 
     #Computes the maximum time step
-    mesh["dt"] = max_time_step(a_in, a_out, mesh["rjk"], mesh["Constants"]["CFL"]) if rkdt == 0 else rkdt
+    mesh["dt"] = max_time_step_gl(a_in, a_out, mesh["rjk"], mesh["Constants"]["CFL"],mesh["GhostCells"]) if rkdt == 0 else rkdt
 
     #NUMERICAL INTEGRATION TO NEXT TIME STEP
     #Bottom Friction Values
@@ -273,7 +273,7 @@ def constant_forward_euler(mesh,t,rkc=1,rkdt=0,cm=0):
     a_out, a_in = CentralUpwindMethod.one_sided_speed(Hmj, umj, vmj, mesh["nx"], mesh["ny"], mesh["jk"], mesh["Constants"]["Gravity"])
 
     #Computes the maximum time step
-    mesh["dt"] = max_time_step(a_in, a_out, mesh["rjk"], mesh["Constants"]["CFL"]) if not rkdt else rkdt
+    mesh["dt"] = max_time_step_gl(a_in, a_out, mesh["rjk"], mesh["Constants"]["CFL"],mesh["GhostCells"]) if rkdt == 0 else rkdt
 
     #NUMERICAL INTEGRATION TO NEXT TIME STEP
     #Bottom Friction Values

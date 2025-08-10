@@ -1111,8 +1111,8 @@ def minmod(Zj, xj, yj, xjk, yjk, ijk,TOL,theta):
     Lj12_x = ((yijk[0,:] - yj)*(Zijk[1,:] - Zj) - (yijk[1,:] - yj)*(Zijk[0,:] - Zj))/D
     Lj12_y = ((xijk[1,:] - xj)*(Zijk[0,:] - Zj) - (xijk[0,:] - xj)*(Zijk[1,:] - Zj))/D
     
-    Lj12_x[bool_aux] = np.inf
-    Lj12_y[bool_aux] = np.inf
+    Lj12_x[bool_aux] = 1e20
+    Lj12_y[bool_aux] = 1e20
         
     #Plane L23:
     D = -((xijk[1,:] - xj)*(yijk[2,:] - yj) - (xijk[2,:] - xj)*(yijk[1,:] - yj))
@@ -1122,8 +1122,8 @@ def minmod(Zj, xj, yj, xjk, yjk, ijk,TOL,theta):
     Lj23_x = ((yijk[1,:] - yj)*(Zijk[2,:] - Zj) - (yijk[2,:] - yj)*(Zijk[1,:] - Zj))/D
     Lj23_y = ((xijk[2,:] - xj)*(Zijk[1,:] - Zj) - (xijk[1,:] - xj)*(Zijk[2,:] - Zj))/D
 
-    Lj23_x[bool_aux] = np.inf
-    Lj23_y[bool_aux] = np.inf
+    Lj23_x[bool_aux] = 1e20
+    Lj23_y[bool_aux] = 1e20
         
     #Plane L31:
     D = -((xijk[2,:] - xj)*(yijk[0,:] - yj) - (xijk[0,:] - xj)*(yijk[2,:] - yj))
@@ -1133,8 +1133,8 @@ def minmod(Zj, xj, yj, xjk, yjk, ijk,TOL,theta):
     Lj31_x = ((yijk[2,:] - yj)*(Zijk[0,:] - Zj) - (yijk[0,:] - yj)*(Zijk[2,:] - Zj))/D
     Lj31_y = ((xijk[0,:] - xj)*(Zijk[2,:] - Zj) - (xijk[2,:] - xj)*(Zijk[0,:] - Zj))/D
 
-    Lj31_x[bool_aux] = np.inf
-    Lj31_y[bool_aux] = np.inf
+    Lj31_x[bool_aux] = 1e20
+    Lj31_y[bool_aux] = 1e20
         
     #Smallest magnitude of the Gradient
     Lx = theta*np.array([Lj12_x, Lj23_x, Lj31_x])

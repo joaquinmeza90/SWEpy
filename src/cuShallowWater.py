@@ -111,6 +111,7 @@ def choose_timestep(ts_option,mesh):
         print(">CRK3: 4 step SSP RK3 with constant reconstruction")
         print(">CFE : Forward Euler with constant reconstruction")
         return True
+    print(" | "+ts_option+" method(s) chosen. |")
 
     return timestep
 
@@ -212,6 +213,7 @@ def run(mesh, ts_option, forced_dt=0, movie=True):
     print("\n Avg. dt = %1f\n" % (t/i))
 
     FileSaver.save_last_Wj(mesh)
+    FileSaver.save_animation(mesh,t,True)
 
     return
 

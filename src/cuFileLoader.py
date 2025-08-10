@@ -162,7 +162,7 @@ def load_configuration_file(mesh):
                 print('\x1B[33m ALERT\x1B[0m[line=%d]: The Keyword \'%s\' in \'%s\' file is not recognized!'%(info.lineno,key,filename))
     return
 
-def load_mesh_from_file(mesh):
+def load_mesh_from_file(mesh,spherical):
     """
     This function reads the raw mesh data provided by the user
 
@@ -188,13 +188,20 @@ def load_mesh_from_file(mesh):
     mesh["GhostCells"  ] = np.loadtxt(os.path.join(path, mesh["FilePath"]["GhostCells"]), skiprows=1, dtype=int).T
     mesh["Coordinates" ] = np.loadtxt(os.path.join(path, mesh["FilePath"]["Coordinates"]), skiprows=1, dtype=float).T
 
+    mesh["cosphi"] = 1
+
+    if spherical:
+        mesh["cosphi"] = np.cos(mesh["Coordinates"][1,:]*np.pi/180)
+        mesh["Coordinates"][0,:]=6371*1000*mesh["Coordinates"][0,:]*np.pi/180*mesh["cosphi"]
+        mesh["Coordinates"][1,:]=6371*1000*mesh["Coordinates"][1,:]*np.pi/180
+
     #Compute side neighbour indeces
     mesh["Neighboors"] = Neighboors
     mesh["jk"] = Utilities.global_index_selection(Neighboors, mesh["NeighSides"]) 
 
     return
 
-def load_from_files(path2files,option="lbm"):
+def load_from_files(path2files,spherical=False,option="lbm"):
     """
     Provides with an updated mesh dictionary whose information are loaded from user-defined input files
 
@@ -228,7 +235,7 @@ def load_from_files(path2files,option="lbm"):
 
     #Fills out domain information
     load_configuration_file(mesh)
-    load_mesh_from_file(mesh)
+    load_mesh_from_file(mesh,spherical)
     load_bathymetry_file(mesh,option)
     load_initial_conditions(mesh)
 
