@@ -1,0 +1,16 @@
+Tmax           84000
+Dry            1e-06
+Tolerance      1e-06
+Gravity        9.81
+Roughness      0
+CFL            0.33
+coriolis       0.0001
+dt_save        60
+WaterLevel     WaterLevelInterp.txt
+Discharge      DischargeInterp.txt
+Bathymetry     BathymetryInterp.txt
+Coordinates    NodeCoordsWGhosts.txt
+Sides          ElemNeighSidesWGhosts.txt
+Elements       ElemNodesWGhosts.txt
+Neighboors     ElemNeighsWGhosts.txt
+GhostCells     GhostCells.txt
