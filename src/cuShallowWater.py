@@ -52,10 +52,9 @@ def print_header():
     print( "                         ", today, "                                 " )
     print( "                                                                     " )
     print( " \033[1;34mWritten by:                                      \033[1;0m" )
-    print( "   Danilo S. Kusanovic (danilo.kusanov@usm.cl)                       " )
-    print( "   Joaquin T. Meza     (joaquin.meza@usm.cl)                         " )
-    print( "   Patricio A. Catalán (patricio.catalan@usm.cl)                     " )
     print( "   Juan A. Fuenzalida  (juan.fuenzalidaa@sansano.usm.cl)             " )
+    print( "   Danilo S. Kusanovic (dkusanovic@ucdavis.edu)                      " )
+    print( "   Joaquin A. Meza     (joaquin.meza@usm.cl)                         " )
     print( "                                                                     " )
 
     return
