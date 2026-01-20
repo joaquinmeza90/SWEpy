@@ -1,7 +1,10 @@
 import os
 import inspect
 import cupy as np
-from cupyx.scipy.interpolate import CloughTocher2DInterpolator
+try:
+    from cupyx.scipy.interpolate import CloughTocher2DInterpolator
+except ImportError:
+    CloughTocher2DInterpolator = None
 
 import cuFileSaver as FileSaver
 import cuPieceWiseReconstruction as PieceWiseReconstruction

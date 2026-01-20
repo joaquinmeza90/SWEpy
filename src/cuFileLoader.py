@@ -228,10 +228,13 @@ def load_from_files(path2files,spherical=False,option="lbm"):
         print(" \033[91mERROR\033[1;0m[line=%d]: The configuration file (.swe) must be provided in the path!"%info.lineno)
         exit(-1)
 
-    #Creates the Paraview folder
-    paraviewpath = os.path.join(mesh["FilePath"]["Directory"], "Paraview")
+    #Creates the Paraview folder in the current working directory, not input directory
+    paraviewpath = os.path.join(os.getcwd(), "Paraview")
     if not os.path.exists(paraviewpath):
         os.makedirs(paraviewpath)
+    
+    # Store output directory path for FileSaver to use
+    mesh["FilePath"]["OutputDirectory"] = paraviewpath
 
     #Fills out domain information
     load_configuration_file(mesh)

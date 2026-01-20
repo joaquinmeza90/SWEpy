@@ -28,8 +28,8 @@ def save_bathymetry(mesh):
     nElems = Elems.shape[0]
 
     #Paraview file name
-    filename = "Paraview/Bathymetry.vtu"
-    filename = os.path.join(mesh["FilePath"]["Directory"], filename)
+    filename = "Bathymetry.vtu"
+    filename = os.path.join(mesh["FilePath"]["OutputDirectory"], filename)
 
     #Opens the ParaView File 
     Paraviewfile = open(filename, "w+")
@@ -139,8 +139,8 @@ def save_animation(mesh, t=0, force=False):
         Wjk = cp.asnumpy(trunc(Wjk,10))
         Wj = cp.asnumpy(trunc(Wj,10))
 
-        filename = "Paraview/Simulation_" + str(mesh["s"]) + ".vtu" if not force else "Paraview/Simulation_" + str(mesh["s"]) + "_forced_t"+f'{t}'+".vtu"
-        filename = os.path.join(mesh["FilePath"]["Directory"], filename)
+        filename = "Simulation_" + str(mesh["s"]) + ".vtu" if not force else "Simulation_" + str(mesh["s"]) + "_forced_t"+f'{t}'+".vtu"
+        filename = os.path.join(mesh["FilePath"]["OutputDirectory"], filename)
 
         #Opens the ParaView File 
         Paraviewfile = open(filename, "w+")
@@ -265,8 +265,8 @@ def save_animation_analytic(mesh, t=0):
         Wjk = cp.asnumpy(Wjk)
         Wj = cp.asnumpy(Wj)
                 
-        filename = "Paraview/Analytic_" + str(mesh["s"]) + ".vtu"
-        filename = os.path.join(mesh["FilePath"]["Directory"], filename)
+        filename = "Analytic_" + str(mesh["s"]) + ".vtu"
+        filename = os.path.join(mesh["FilePath"]["OutputDirectory"], filename)
 
         #Opens the ParaView File 
         Paraviewfile = open(filename, "w+")
@@ -346,7 +346,8 @@ def save_animation_analytic(mesh, t=0):
 def save_error_calc(mesh):
 
     filename = "L2Error.txt"
-    filename = os.path.join(mesh["FilePath"]["Directory"], filename)
+    filename = "L2Error.txt"
+    filename = os.path.join(mesh["FilePath"]["OutputDirectory"], filename)
      
     Textfile = open(filename, "w+")
 
@@ -362,7 +363,8 @@ def save_error_calc(mesh):
 
 def save_last_Wj(mesh):
     filename = "Wj_xj_yj_at_Tmax.txt"
-    filename = os.path.join(mesh["FilePath"]["Directory"], filename)
+    filename = "Wj_xj_yj_at_Tmax.txt"
+    filename = os.path.join(mesh["FilePath"]["OutputDirectory"], filename)
 
     Elems = cp.asnumpy(mesh["Elements"].T)
 
@@ -392,7 +394,7 @@ def save_TS(mesh, t, gauges):
 
         for gauge in gauges:
             filename="gauge_"+str(gauge)+".txt"
-            filename = os.path.join(mesh["FilePath"]["Directory"], filename)
+            filename = os.path.join(mesh["FilePath"]["OutputDirectory"], filename)
             txt = open(filename,"a")
             if type(gauge) is int:
                 txt.write(str(trunc(t,10))+" "+str(mesh["Wj"][gauge])+" "+str(mesh["Wj"][gauge]-mesh["Bj"][gauge])+"\n")
