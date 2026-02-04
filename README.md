@@ -18,7 +18,7 @@
 
 For a complete technical reference, mathematical background, and detailed user guide, please visit our official documentation page:
 
-👉 **[www.hydrology.cl/swepy](http://www.hydrology.cl/swepy)**
+ **[www.hydrology.cl/swepy](http://www.hydrology.cl/swepy)**
 
 The manual covers:
 * Numerical Implementation (FVM & Riemann Solvers).
