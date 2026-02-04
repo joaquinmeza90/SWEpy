@@ -14,18 +14,33 @@
 
 ---
 
-## 2. Installation and Environment
+## 2. Documentation & Manual
+
+For a complete technical reference, mathematical background, and detailed user guide, please visit our official documentation page:
+
+👉 **[www.hydrology.cl/swepy](http://www.hydrology.cl/swepy)**
+
+The manual covers:
+* Numerical Implementation (FVM & Riemann Solvers).
+* Input file specifications (`Config.swe`, mesh formats).
+* Visualization workflows in ParaView.
+* Verification & Validation (V&V) cases.
+
+---
+
+
+## 3. Installation and Environment
 
 SWEpy relies on NVIDIA's CUDA architecture for parallel computing. To ensure stability and reproducibility, we strongly recommend using **Miniconda** to manage the Python environment.
 
-### 2.1 Prerequisites: Hardware & Drivers
+### 3.1 Prerequisites: Hardware & Drivers
 Before installing, verify your GPU compatibility. Open your terminal and run:
 ```bash
 nvidia-smi
 ```
 Check the `CUDA Version` in the top-right corner of the output table (e.g., 11.7 or 12.2). You need a Pascal GPU (GTX 10-series) or newer.
 
-### 2.2 Environment Setup
+### 3.2 Environment Setup
 
 #### Installing Miniconda
 If you do not have Conda installed:
@@ -64,7 +79,7 @@ Then, install CuPy matching your CUDA version (check with `nvidia-smi`):
 *   For CUDA 11.x: `pip install cupy-cuda11x`
 *   For CUDA 12.x: `pip install cupy-cuda12x`
 
-### 2.3 Verifying Installation
+### 3.3 Verifying Installation
 Run the provided diagnostic script to verify that Python can talk to the GPU:
 
 ```bash
@@ -74,7 +89,7 @@ If successful, you will see `[✓] SUCCESS: SWEpy is ready for simulation.`
 
 ---
 
-## 3. Usage
+## 4. Usage
 
 ### 3.1 Configuration
 Each simulation requires a configuration file (e.g., `Config.swe`) and a set of mesh files. An example set is provided in the `input_example/` directory.
@@ -86,7 +101,7 @@ Dry            1e-06    # Dry depth tolerance
 ...
 ```
 
-### 3.2 Executing the Solver
+### 4.2 Executing the Solver
 `run_sim.py` is the main execution script.
 
 **Basic Usage (Recommendation for testing)**
@@ -121,7 +136,7 @@ python run_sim.py -m rk3
 python run_sim.py ./my_custom_inputs/ -m rk3weno
 ```
 
-### 3.3 Visualization
+### 4.3 Visualization
 Results are saved in the `Paraview/` folder created in your current working directory.
 *   **Bathymetry.vtu**: Terrain mesh.
 *   **Simulation_[step].vtu**: Water depth and velocities at each time step.
@@ -132,7 +147,7 @@ Open `.vtu` files with [Paraview](https://www.paraview.org/) to visualize.
 
 ---
 
-## 4. Directory Structure
+## 5. Directory Structure
 
 *   `run_sim.py`: Main driver script.
 *   `check_installation.py`: Diagnostic tool.
@@ -143,7 +158,7 @@ Open `.vtu` files with [Paraview](https://www.paraview.org/) to visualize.
 *   `input_example/`: Default test case files.
 *   `Paraview/`: Output directory (auto-created).
 
-## 5. References
+## 6. References
 
 Based on numerical methods for Hyperbolic Conservation Laws and Shallow Water Equations, including:
 *   Kurganov A., Petrova G., "A second-order well-balanced positivity preserving central-upwind scheme for the Saint-Venant system", *Communications in Mathematical Sciences*, 2007.
