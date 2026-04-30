@@ -650,10 +650,10 @@ def forward_euler_weno(mesh,t,rkc=1,rkdt=0,cm=0):
     #Well Balanced wet-dry Reconstruction
     Hmj1     = CentralUpwindMethod.set_water_depth(Wmj1, Bmj1, mesh["Constants"]["Dry"])
     Hmj2     = CentralUpwindMethod.set_water_depth(Wmj2, Bmj2, mesh["Constants"]["Dry"])
-    #mesh["Wjk"],Wmj1,Wmj2,Hmj1,Hmj2,wxc,wyc,wreconc = PieceWiseReconstruction.set_linear_well_balanced_wet_dry2(mesh["Wjk"], mesh["Bjk"], Wmj1, Wmj2, Hmj1, Hmj2, Bmj1, Bmj2, Bj, mesh["Wj"], mesh["xj"], mesh["yj"], xjk, yjk, mesh["Constants"]["Tolerance"], mesh["Constants"]["Dry"], mesh["jk"], mesh["GhostCells"],wx,wy,wrecon)
-    wxc=wx
-    wyc=wy
-    #Wg1, Wg2, Wg3 = PieceWiseReconstruction.set_weno_in_values(wreconc, mesh["xg0"], mesh["xg1"], mesh["xg2"], mesh["yg0"], mesh["yg1"], mesh["yg2"],ov)
+    mesh["Wjk"],Wmj1,Wmj2,Hmj1,Hmj2,wxc,wyc,wreconc = PieceWiseReconstruction.set_linear_well_balanced_wet_dry2(mesh["Wjk"], mesh["Bjk"], Wmj1, Wmj2, Hmj1, Hmj2, Bmj1, Bmj2, Bj, mesh["Wj"], mesh["xj"], mesh["yj"], xjk, yjk, mesh["Constants"]["Tolerance"], mesh["Constants"]["Dry"], mesh["jk"], mesh["GhostCells"],wx,wy,wrecon)
+    #wxc=wx
+    #wyc=wy
+    Wg1, Wg2, Wg3 = PieceWiseReconstruction.set_weno_in_values(wreconc, mesh["xg0"], mesh["xg1"], mesh["xg2"], mesh["yg0"], mesh["yg1"], mesh["yg2"],ov)
 
     #This should update the inside gaussian points for W too!
     
