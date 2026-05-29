@@ -72,16 +72,16 @@ def choose_timestep(ts_option,mesh):
         from cuSolver import constant_forward_euler as timestep
     elif ts_option.upper() == "FECAS":
         from cuSolver import forward_euler_castro as timestep
-        cm=0.2                                                     #Constante mentirosa de Castro
+        cm=0.2                                                     #Constante de Castro
     elif ts_option.upper() == "RK3CAS":
         from cuSolver import runge_kutta3_castro as timestep
-        cm=0.2                                                      #Constante mentirosa de Castro
+        cm=0.2                                                      #Constante de Castro
     elif ts_option.upper() == "FECAS2":
         from cuSolver import forward_euler_castro2 as timestep
-        cm=0.2                                                     #Constante mentirosa de Castro
+        cm=0.2                                                     #Constante de Castro
     elif ts_option.upper() == "RK3CAS2":
         from cuSolver import runge_kutta3_castro2 as timestep
-        cm=0.2                                                      #Constante mentirosa de Castro
+        cm=0.2                                                      #Constante de Castro
     elif ts_option.upper() == "FE3":
         from cuSolver import forward_euler_quad as timestep
         print(" | Preprocessing mesh for quadratic minmod reconstruction... | ")
@@ -284,10 +284,10 @@ def run_error_calc(mesh, ts_option, forced_dt=0, anal_sol=None, params=[]):
         cm=0.2
     elif ts_option.upper() == "FECAS2":
         from cuSolver import forward_euler_castro2 as timestep
-        cm=0.2                                                     #Constante mentirosa de Castro
+        cm=0.2                                                     #Constante de Castro
     elif ts_option.upper() == "RK3CAS2":
         from cuSolver import runge_kutta3_castro2 as timestep
-        cm=0.2                                                      #Constante mentirosa de Castro
+        cm=0.2                                                      #Constante de Castro
     elif ts_option.upper() == "FE3":
         from cuSolver import forward_euler_quad as timestep
         print(" | Preprocessing mesh for quadratic reconstruction... | ")
