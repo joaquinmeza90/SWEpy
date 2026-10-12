@@ -1,6 +1,6 @@
 import os
 import shlex
-import cupy as np
+import numpy as np
 
 import cuUtilities as Utilities
 
@@ -228,8 +228,7 @@ def load_from_files(path2files,spherical=False,option="lbm"):
         print(" \033[91mERROR\033[1;0m[line=%d]: The configuration file (.swe) must be provided in the path!"%info.lineno)
         exit(-1)
 
-    #Creates the Paraview folder in the current working directory, not input directory
-    paraviewpath = os.path.join(os.getcwd(), "Paraview")
+    paraviewpath = os.path.join(mesh["FilePath"]["Directory"], "Paraview")
     if not os.path.exists(paraviewpath):
         os.makedirs(paraviewpath)
     

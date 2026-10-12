@@ -1,6 +1,5 @@
 import os
-import cupy as cp
-import numpy as np
+import numpy as cp
 
 def trunc(values, decs=0):
     return cp.trunc(values*10**decs)/(10**decs)
@@ -18,13 +17,13 @@ def save_bathymetry(mesh):
         writes to disk the Bathymetry.vtu file
     """
     #Unpack Variables
-    Nodes = cp.asnumpy(mesh["Coordinates"].T)
-    Elems = cp.asnumpy(mesh["Elements"].T)
-    Bsurf = cp.asnumpy(trunc(mesh["Bjk"].T,16))
+    Nodes = mesh["Coordinates"].T
+    Elems = mesh["Elements"].T
+    Bsurf = trunc(mesh["Bjk"].T,16)
     
     #Remove the ghost cells 
-    nGhost = cp.asnumpy(mesh["GhostCells"].shape[1])
-    Elems = Elems[:-nGhost,:]
+    #nGhost = mesh["GhostCells"].shape[1]
+    #Elems = Elems[:-nGhost,:]
     nElems = Elems.shape[0]
 
     #Paraview file name
@@ -122,22 +121,12 @@ def save_animation(mesh, t=0, force=False):
         Hj  = cp.maximum(mesh["Wj"] - mesh["Bj"], 0.01*TOL)
         nElems = Elems.shape[0]
 
-        Hj = cp.asnumpy(Hj)
-
         #Elements that are not dry
         rednum = 0
         for eTag in range(nElems):
             if Hj[eTag] > TOL:
                 rednum += 1
 
-        #Turn into numpy array to avoid synch problems
-        Nodes = cp.asnumpy(Nodes)
-        Elems = cp.asnumpy(Elems)
-        Bsurf = cp.asnumpy(Bsurf)
-        HUj = cp.asnumpy(HUj)
-        HVj = cp.asnumpy(HVj)
-        Wjk = cp.asnumpy(trunc(Wjk,10))
-        Wj = cp.asnumpy(trunc(Wj,10))
 
         filename = "Simulation_" + str(mesh["s"]) + ".vtu" if not force else "Simulation_" + str(mesh["s"]) + "_forced_t"+f'{t}'+".vtu"
         filename = os.path.join(mesh["FilePath"]["OutputDirectory"], filename)
@@ -248,22 +237,11 @@ def save_animation_analytic(mesh, t=0):
         Wj = mesh["Wj"]
         Hj  = cp.maximum(mesh["Wj"] - mesh["Bj"], TOL)
 
-        Hj = cp.asnumpy(Hj)
-
         #Elements that are not dry
         rednum = 0
         for eTag in range(nElems):
             if Hj[eTag] > TOL:
                 rednum += 1
-
-        #Turn into numpy array to avoid synch problems
-        Nodes = cp.asnumpy(Nodes)
-        Elems = cp.asnumpy(Elems)
-        Bsurf = cp.asnumpy(Bsurf)
-        HUj = cp.asnumpy(HUj)
-        HVj = cp.asnumpy(HVj)
-        Wjk = cp.asnumpy(Wjk)
-        Wj = cp.asnumpy(Wj)
                 
         filename = "Analytic_" + str(mesh["s"]) + ".vtu"
         filename = os.path.join(mesh["FilePath"]["OutputDirectory"], filename)
@@ -366,16 +344,16 @@ def save_last_Wj(mesh):
     filename = "Wj_xj_yj_at_Tmax.txt"
     filename = os.path.join(mesh["FilePath"]["OutputDirectory"], filename)
 
-    Elems = cp.asnumpy(mesh["Elements"].T)
+    Elems = mesh["Elements"].T
 
     #Remove the ghost cells 
     nGhost = int(mesh["GhostCells"].shape[1])
     Elems = Elems[:-nGhost,:]
     nElems = int(Elems.shape[0])
 
-    Wj=cp.asnumpy(mesh["Wj"])
-    xj=cp.asnumpy(mesh["xj"])
-    yj=cp.asnumpy(mesh["yj"])
+    Wj=mesh["Wj"]
+    xj=mesh["xj"]
+    yj=mesh["yj"]
      
     Textfile = open(filename, "w+")
 

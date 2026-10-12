@@ -1,4 +1,4 @@
-import cupy as np
+import numpy as np
 import cuCentralUpwindMethod as CentralUpwindMethod
 import cuPieceWiseReconstruction as PieceWiseReconstruction
 import cuBoundaryConditions as BoundaryConditions

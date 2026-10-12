@@ -1,10 +1,13 @@
 import os
 import inspect
-import cupy as np
+import numpy as np
 try:
     from cupyx.scipy.interpolate import CloughTocher2DInterpolator
 except ImportError:
-    CloughTocher2DInterpolator = None
+    try:
+        from scipy.interpolate import CloughTocher2DInterpolator
+    except ImportError:
+        CloughTocher2DInterpolator = None
 
 import cuFileSaver as FileSaver
 import cuPieceWiseReconstruction as PieceWiseReconstruction
@@ -799,7 +802,7 @@ def lin_coefs(mesh):
     y1 = mesh["yj"][mesh["Neighboors"][0,:]]
     y2 = mesh["yj"][mesh["Neighboors"][1,:]]
 
-    coefs = np.array([[((y2-y0)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))).get(),((y0-y1)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))).get()],[((x0-x2)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))).get(),((x1-x0)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))).get()]]).transpose((2,0,1))
+    coefs = np.array([[((y2-y0)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))),((y0-y1)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0)))],[((x0-x2)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))),((x1-x0)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0)))]]).transpose((2,0,1))
     coefs[ov1]=zz
     mesh["lin_coefs"]["12"]=coefs
 
@@ -808,7 +811,7 @@ def lin_coefs(mesh):
     y1 = mesh["yj"][mesh["Neighboors"][1,:]]
     y2 = mesh["yj"][mesh["Neighboors"][2,:]]
 
-    coefs = np.array([[((y2-y0)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))).get(),((y0-y1)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))).get()],[((x0-x2)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))).get(),((x1-x0)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))).get()]]).transpose((2,0,1))
+    coefs = np.array([[((y2-y0)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))),((y0-y1)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0)))],[((x0-x2)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))),((x1-x0)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0)))]]).transpose((2,0,1))
     coefs[ov1]=zz
     mesh["lin_coefs"]["23"]=coefs
 
@@ -817,7 +820,7 @@ def lin_coefs(mesh):
     y1 = mesh["yj"][mesh["Neighboors"][2,:]]
     y2 = mesh["yj"][mesh["Neighboors"][0,:]]
 
-    coefs = np.array([[((y2-y0)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))).get(),((y0-y1)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))).get()],[((x0-x2)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))).get(),((x1-x0)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))).get()]]).transpose((2,0,1))
+    coefs = np.array([[((y2-y0)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))),((y0-y1)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0)))],[((x0-x2)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))),((x1-x0)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0)))]]).transpose((2,0,1))
     coefs[ov1]=zz
     mesh["lin_coefs"]["31"]=coefs
 
@@ -826,7 +829,7 @@ def lin_coefs(mesh):
     y1 = mesh["yj"][mesh["Neighboors"][0,:]]
     y2 = mesh["yj"][mesh["Neighs2"][:,0,0]]
 
-    coefs = np.array([[((y2-y0)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))).get(),((y0-y1)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))).get()],[((x0-x2)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))).get(),((x1-x0)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))).get()]]).transpose((2,0,1))
+    coefs = np.array([[((y2-y0)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))),((y0-y1)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0)))],[((x0-x2)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))),((x1-x0)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0)))]]).transpose((2,0,1))
     coefs[ov]=zz
     mesh["lin_coefs"]["111"]=coefs
 
@@ -835,7 +838,7 @@ def lin_coefs(mesh):
     y1 = mesh["yj"][mesh["Neighboors"][0,:]]
     y2 = mesh["yj"][mesh["Neighs2"][:,0,1]]
 
-    coefs = np.array([[((y2-y0)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))).get(),((y0-y1)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))).get()],[((x0-x2)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))).get(),((x1-x0)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))).get()]]).transpose((2,0,1))
+    coefs = np.array([[((y2-y0)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))),((y0-y1)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0)))],[((x0-x2)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))),((x1-x0)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0)))]]).transpose((2,0,1))
     coefs[ov]=zz
     mesh["lin_coefs"]["112"]=coefs
 
@@ -844,7 +847,7 @@ def lin_coefs(mesh):
     y1 = mesh["yj"][mesh["Neighboors"][1,:]]
     y2 = mesh["yj"][mesh["Neighs2"][:,1,0]]
 
-    coefs = np.array([[((y2-y0)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))).get(),((y0-y1)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))).get()],[((x0-x2)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))).get(),((x1-x0)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))).get()]]).transpose((2,0,1))
+    coefs = np.array([[((y2-y0)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))),((y0-y1)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0)))],[((x0-x2)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))),((x1-x0)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0)))]]).transpose((2,0,1))
     coefs[ov]=zz
     mesh["lin_coefs"]["221"]=coefs
 
@@ -853,7 +856,7 @@ def lin_coefs(mesh):
     y1 = mesh["yj"][mesh["Neighboors"][1,:]]
     y2 = mesh["yj"][mesh["Neighs2"][:,1,1]]
 
-    coefs = np.array([[((y2-y0)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))).get(),((y0-y1)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))).get()],[((x0-x2)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))).get(),((x1-x0)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))).get()]]).transpose((2,0,1))
+    coefs = np.array([[((y2-y0)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))),((y0-y1)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0)))],[((x0-x2)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))),((x1-x0)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0)))]]).transpose((2,0,1))
     coefs[ov]=zz
     mesh["lin_coefs"]["222"]=coefs
 
@@ -862,7 +865,7 @@ def lin_coefs(mesh):
     y1 = mesh["yj"][mesh["Neighboors"][2,:]]
     y2 = mesh["yj"][mesh["Neighs2"][:,2,0]]
 
-    coefs = np.array([[((y2-y0)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))).get(),((y0-y1)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))).get()],[((x0-x2)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))).get(),((x1-x0)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))).get()]]).transpose((2,0,1))
+    coefs = np.array([[((y2-y0)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))),((y0-y1)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0)))],[((x0-x2)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))),((x1-x0)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0)))]]).transpose((2,0,1))
     coefs[ov]=zz
     mesh["lin_coefs"]["331"]=coefs
 
@@ -871,7 +874,7 @@ def lin_coefs(mesh):
     y1 = mesh["yj"][mesh["Neighboors"][2,:]]
     y2 = mesh["yj"][mesh["Neighs2"][:,2,1]]
 
-    coefs = np.array([[((y2-y0)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))).get(),((y0-y1)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))).get()],[((x0-x2)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))).get(),((x1-x0)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))).get()]]).transpose((2,0,1))
+    coefs = np.array([[((y2-y0)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))),((y0-y1)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0)))],[((x0-x2)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0))),((x1-x0)/((x1-x0)*(y2-y0)-(y1-y0)*(x2-x0)))]]).transpose((2,0,1))
     coefs[ov]=zz
     mesh["lin_coefs"]["332"]=coefs
     
@@ -895,7 +898,7 @@ def lin_coefs2(mesh):
     y2 = mesh["yj"][mesh["Neighboors"][1,:]]
     y3 = mesh["yj"][mesh["Neighboors"][2,:]]
     
-    a = np.array([[(x1-x0).get(),(y1-y0).get()],[(x2-x0).get(),(y2-y0).get()],[(x3-x0).get(),(y3-y0).get()]]).transpose((2,0,1))
+    a = np.array([[(x1-x0),(y1-y0)],[(x2-x0),(y2-y0)],[(x3-x0),(y3-y0)]]).transpose((2,0,1))
 
     at=a.transpose((0,2,1))
 
@@ -916,7 +919,7 @@ def lin_coefs2(mesh):
     y2 = mesh["yj"][mesh["Neighs2"][:,0,0]]
     y3 = mesh["yj"][mesh["Neighs2"][:,0,1]]
     
-    a = np.array([[(x1-x0).get(),(y1-y0).get()],[(x2-x0).get(),(y2-y0).get()],[(x3-x0).get(),(y3-y0).get()]]).transpose((2,0,1))
+    a = np.array([[(x1-x0),(y1-y0)],[(x2-x0),(y2-y0)],[(x3-x0),(y3-y0)]]).transpose((2,0,1))
 
     at=a.transpose((0,2,1))
 
@@ -937,7 +940,7 @@ def lin_coefs2(mesh):
     y2 = mesh["yj"][mesh["Neighs2"][:,1,0]]
     y3 = mesh["yj"][mesh["Neighs2"][:,1,1]]
     
-    a = np.array([[(x1-x0).get(),(y1-y0).get()],[(x2-x0).get(),(y2-y0).get()],[(x3-x0).get(),(y3-y0).get()]]).transpose((2,0,1))
+    a = np.array([[(x1-x0),(y1-y0)],[(x2-x0),(y2-y0)],[(x3-x0),(y3-y0)]]).transpose((2,0,1))
 
     at=a.transpose((0,2,1))
 
@@ -958,7 +961,7 @@ def lin_coefs2(mesh):
     y2 = mesh["yj"][mesh["Neighs2"][:,2,0]]
     y3 = mesh["yj"][mesh["Neighs2"][:,2,1]]
     
-    a = np.array([[(x1-x0).get(),(y1-y0).get()],[(x2-x0).get(),(y2-y0).get()],[(x3-x0).get(),(y3-y0).get()]]).transpose((2,0,1))
+    a = np.array([[(x1-x0),(y1-y0)],[(x2-x0),(y2-y0)],[(x3-x0),(y3-y0)]]).transpose((2,0,1))
 
     at=a.transpose((0,2,1))
 

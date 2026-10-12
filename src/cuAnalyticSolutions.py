@@ -1,4 +1,4 @@
-import cupy as np
+import numpy as np
 import scipy as sp
 import cuSolver as Solver
 import cuUtilities as Utilities

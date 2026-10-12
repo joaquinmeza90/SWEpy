@@ -1,4 +1,4 @@
-import cupy as np
+import numpy as np
 
 def set_water_depth(Wmj, Bmj, DRY):
     """

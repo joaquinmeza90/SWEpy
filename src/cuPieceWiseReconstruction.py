@@ -1,4 +1,4 @@
-import cupy as np
+import numpy as np
 
 def weno(Zj,T,Ix,Iy,Ixy,x0,y0,coefs,lcoefs,neighs,neighs2,bad_cells):
 

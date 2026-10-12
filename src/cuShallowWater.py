@@ -3,7 +3,7 @@
 import os
 import sys
 import atexit
-import cupy as np
+import numpy as np
 from datetime import date
 
 import cuSolver as Solver
@@ -72,16 +72,16 @@ def choose_timestep(ts_option,mesh):
         from cuSolver import constant_forward_euler as timestep
     elif ts_option.upper() == "FECAS":
         from cuSolver import forward_euler_castro as timestep
-        cm=0.2                                                     #Constante mentirosa de Castro
+        cm=0.2                                                     
     elif ts_option.upper() == "RK3CAS":
         from cuSolver import runge_kutta3_castro as timestep
-        cm=0.2                                                      #Constante mentirosa de Castro
+        cm=0.2                                                      
     elif ts_option.upper() == "FECAS2":
         from cuSolver import forward_euler_castro2 as timestep
-        cm=0.2                                                     #Constante mentirosa de Castro
+        cm=0.2                                                     
     elif ts_option.upper() == "RK3CAS2":
         from cuSolver import runge_kutta3_castro2 as timestep
-        cm=0.2                                                      #Constante mentirosa de Castro
+        cm=0.2                                                      
     elif ts_option.upper() == "FE3":
         from cuSolver import forward_euler_quad as timestep
         print(" | Preprocessing mesh for quadratic minmod reconstruction... | ")
@@ -199,7 +199,7 @@ def run(mesh, ts_option, forced_dt=0, movie=True):
         if movie:
             FileSaver.save_animation(mesh, t)
 
-        print((" | GPU | Running: "+mesh["FilePath"]["Directory"]+" | Progress : %1.2f%s ( t = %1.5f, dt = %1.5f, it = %1d )" % (100*t/mesh["Constants"]["Tmax"], "%", t, dt, i)), flush=True, end="\r")
+        print((" | CPU | Running: "+mesh["FilePath"]["Directory"]+" | Progress : %1.2f%s ( t = %1.5f, dt = %1.5f, it = %1d )" % (100*t/mesh["Constants"]["Tmax"], "%", t, dt, i)), flush=True, end="\r")
 
     #Detects divergence
     if dt <= mesh["Constants"]["Tolerance"] or np.isnan(dt):
@@ -339,7 +339,7 @@ def run_error_calc(mesh, ts_option, forced_dt=0, anal_sol=None, params=[]):
         i += 1
         AnalyticSolutions.calculate_error(mesh, anal, params, t)
 
-        print((" | GPU | Running: "+mesh["FilePath"]["Directory"]+" (L2 Error) | Progress : %1.2f%s ( t = %1.5f, dt = %1.5f, it = %1d )" % (100*t/mesh["Constants"]["Tmax"], "%", t, dt, i)), flush=True, end="\r")
+        print((" | CPU | Running: "+mesh["FilePath"]["Directory"]+" (L2 Error) | Progress : %1.2f%s ( t = %1.5f, dt = %1.5f, it = %1d )" % (100*t/mesh["Constants"]["Tmax"], "%", t, dt, i)), flush=True, end="\r")
 
     #Detects divergence
     if dt <= mesh["Constants"]["Tolerance"]:
@@ -457,7 +457,7 @@ def run_with_TS(mesh, ts_option, gauges, points=[], forced_dt=0.):
         
         FileSaver.save_TS(mesh, t, gauges)
 
-        print((" | GPU | Running: "+mesh["FilePath"]["Directory"]+" | Progress : %1.2f%s ( t = %1.5f, dt = %1.5f, it = %1d )" % (100*t/mesh["Constants"]["Tmax"], "%", t, dt, i)), flush=True, end="\r")
+        print((" | CPU | Running: "+mesh["FilePath"]["Directory"]+" | Progress : %1.2f%s ( t = %1.5f, dt = %1.5f, it = %1d )" % (100*t/mesh["Constants"]["Tmax"], "%", t, dt, i)), flush=True, end="\r")
 
     #Detects divergence
     if dt <= mesh["Constants"]["Tolerance"]:
